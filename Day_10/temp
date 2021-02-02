@@ -1,0 +1,45 @@
+inp = open("in10_test2.csv")
+
+input = readlines(inp)
+
+input = parse.(Int, input) 
+
+push!(input, 0)
+push!(input, maximum(input)+3)
+
+adapters = sort(input)
+println(adapters)
+
+diff = Vector{Int}(undef, length(adapters)-1)
+for i in 1:(length(adapters)-1)
+  diff[i] = adapters[i+1] - adapters[i]
+end
+
+println("Diff vect: \n", diff)
+
+comb = 0
+line = Int64[]
+
+for i in 2:length(diff)
+  if diff[i] == 1 == diff[i-1] == diff[i+1]
+    global comb += 1
+  elseif 1 < comb < 3
+    push!(line, comb)
+    global comb = 0
+  end
+end
+
+res = 0
+println(line)
+
+for i in line
+  println(i)
+  global res += i-1
+end
+
+res = 2^res
+
+
+println()
+println("Line: \n", line)
+println("Res: \n", res)
